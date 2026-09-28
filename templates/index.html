@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Ethical Hacking Hub · Learn to Defend{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">Ethical Hacking Hub · E.H.H.</span>
+    <h1>Understand the attack. <span>Build the defense.</span></h1>
+    <p class="hero-lede">A practical place to build cybersecurity skills through focused learning paths, useful resources, and responsible hands-on practice.</p>
+    <div class="hero-actions">
+      {% if session.get('user_id') %}
+      <a class="btn btn-primary" href="{{ url_for('dashboard') }}">Go to your dashboard <span aria-hidden="true">→</span></a>
+      {% else %}
+      <a class="btn btn-primary" href="{{ url_for('signup') }}">Start learning <span aria-hidden="true">→</span></a>
+      <a class="btn btn-ghost" href="{{ url_for('login') }}">Log in</a>
+      {% endif %}
+    </div>
+    <div class="hero-note"><span class="status-dot"></span> Learn responsibly. Practice with permission.</div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-image-frame">
+      <img src="{{ url_for('static', filename='images/og-image.jpg') }}" alt="Ethical Hacking Hub cybersecurity artwork" fetchpriority="high" />
+      <span class="hero-image-tag">E.H.H. / LEARN · DEFEND</span>
+      <span class="hero-image-label">Cybersecurity, with purpose</span>
+    </div>
+  </div>
+</section>
+<div class="trust-strip" aria-label="Learning principles"><span>Structured learning paths</span><span>Curated resources</span><span>Practice with permission</span></div>
+<section class="section">
+  <div class="section-head">
+    <div><span class="section-kicker">Explore the hub</span><h2>Learning paths for a stronger foundation.</h2></div>
+    <p>Each path builds toward the same goal: knowing a system well enough to protect it.</p>
+  </div>
+  <div class="path-grid">
+    {% for path in paths %}
+    <article class="path-card"><div class="path-icon" aria-hidden="true">{{ "%02d"|format(loop.index) }}</div><h3>{{ path.title }}</h3><p>{{ path.description }}</p></article>
+    {% endfor %}
+  </div>
+</section>
+<section class="section">
+  <div class="feature-band">
+    <img src="{{ url_for('static', filename='images/g.jpg') }}" alt="Cybersecurity themed artwork from Ethical Hacking Hub" loading="lazy" />
+    <div class="feature-copy">
+      <span class="section-kicker">Learn with purpose</span>
+      <h2>Knowledge is strongest when it protects.</h2>
+      <p>Build your foundation with guided topics and resources, and keep every exercise inside a lab or an environment you are authorized to test.</p>
+      <a class="btn btn-ghost" href="{{ url_for('about') }}">About the hub <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+{% endblock %}

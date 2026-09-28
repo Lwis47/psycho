@@ -1,0 +1,83 @@
+<!doctype html>
+{% extends "base.html" %} {% block title %}Registered users · E.H.H.{% endblock
+%} {% block content %}
+<div class="dash-hero">
+  <h1>Registered users</h1>
+  <p>Everyone who has signed up for E.H.H., newest first.</p>
+</div>
+
+<section class="section">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Full name</th>
+        <th>Email</th>
+        <th>Signed up</th>
+        <th>Verified</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in users %}
+      <tr>
+        <td>{{ u.full_name if u.full_name else "—" }}</td>
+        <td>{{ u.email }}</td>
+        <td>{{ u.created_at }}</td>
+        <td>{{ "Yes" if u.is_verified else "No" }}</td>
+        <td>{{ "Admin" if u.is_admin else "User" }}</td>
+        <td>
+          {% if u.is_active %}
+          <span style="color: var(--accent)">Active</span>
+          {% else %}
+          <span style="color: var(--danger)">Deactivated</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if u.id == session.get('user_id') %}
+          <span class="m-meta">This is you</span>
+          {% else %}
+          <div style="display: flex; gap: 8px; flex-wrap: wrap">
+            <form
+              method="post"
+              action="{{ url_for('toggle_user_active', user_id=u.id) }}"
+            >
+              <button type="submit" class="btn btn-ghost btn-sm">
+                {{ "Reactivate" if not u.is_active else "Deactivate" }}
+              </button>
+            </form>
+            <form
+              method="post"
+              action="{{ url_for('toggle_user_admin', user_id=u.id) }}"
+            >
+              <button type="submit" class="btn btn-ghost btn-sm">
+                {{ "Remove admin" if u.is_admin else "Make admin" }}
+              </button>
+            </form>
+            <form
+              method="post"
+              action="{{ url_for('delete_user', user_id=u.id) }}"
+              onsubmit="return confirm('Permanently delete {{ u.email }}? This can\'t be undone.');"
+            >
+              <button type="submit" class="danger-btn">Delete</button>
+            </form>
+          </div>
+          {% endif %}
+        </td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="7">No users yet.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="section" style="padding-top: 0">
+  <a class="btn btn-ghost" href="{{ url_for('admin_panel') }}"
+    >&larr; Back to admin panel</a
+  >
+</section>
+{% endblock %}

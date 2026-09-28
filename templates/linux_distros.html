@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Linux distributions · E.H.H.{% endblock %}
+{% block content %}
+<div class="dash-hero">
+  <h1>Linux distributions</h1>
+  <p>The operating systems most used in security work, each linked to its official download page.</p>
+</div>
+
+<section class="section">
+  <table class="distro-table">
+    <thead>
+      <tr>
+        <th>Distribution</th>
+        <th>Best for</th>
+        <th>Download</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in distros %}
+      <tr>
+        <td>{{ d.name }}</td>
+        <td>{{ d.use }}</td>
+        <td><a class="dl-link" href="{{ d.url }}" target="_blank" rel="noopener">Official site &rsaquo;</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

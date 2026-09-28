@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Verify your email · E.H.H.{% endblock %}
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h1>Verify your email</h1>
+    <p class="auth-sub">Enter the 6-digit code we sent to your inbox.</p>
+    <form method="post">
+      <div class="field">
+        <label for="email">Email address</label>
+        <input type="email" id="email" name="email" value="{{ email }}" required autofocus>
+      </div>
+      <div class="field code-input">
+        <label for="code">Verification code</label>
+        <input type="text" id="code" name="code" maxlength="6" pattern="[0-9]{6}" placeholder="000000" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Verify</button>
+    </form>
+    <div class="auth-foot">
+      <form class="resend-form" method="post" action="{{ url_for('resend_code') }}">
+        <input type="hidden" name="email" value="{{ email }}">
+        <span>Didn't get a code?</span>
+        <button type="submit" class="link-btn">Resend it</button>
+      </form>
+      <a href="{{ url_for('login') }}">Back to log in</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
