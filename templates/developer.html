@@ -12,6 +12,26 @@
   <a class="dev-contact" href="mailto:Ehh_Admin@proton.me?subject=Regarding%20E.H.H">Ehh_Admin@proton.me</a>
   <p>I'm a cybersecurity enthusiast and aspiring software developer dedicated to learning, exploring, and sharing
      knowledge in cybersecurity. Through Ethical Hacking Hub my goal is to create a platform that empowers people to build skills in ethical hacking and cybersecurity.</p>
+  <div class="tabs" data-tabs>
+    <div class="tab-list" role="tablist" aria-label="Developer information">
+      <button class="tab-button is-active" type="button" role="tab" aria-selected="true" aria-controls="story-panel" id="story-tab" data-tab="story">The story</button>
+      <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="stack-panel" id="stack-tab" data-tab="stack">The stack</button>
+      <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="values-panel" id="values-tab" data-tab="values">Values</button>
+    </div>
+    <div class="tab-panel is-active" id="story-panel" role="tabpanel" aria-labelledby="story-tab" data-panel="story">
+      <h2>Built to make security feel possible.</h2>
+      <p>E.H.H. started as a learning project: turn scattered notes and useful references into a calm, practical space where the next step is always clear.</p>
+    </div>
+    <div class="tab-panel" id="stack-panel" role="tabpanel" aria-labelledby="stack-tab" data-panel="stack" hidden>
+      <h2>Small tools, useful outcomes.</h2>
+      <p>Flask powers the server, SQLite keeps setup simple, and the interface uses semantic HTML, focused CSS, and lightweight vanilla JavaScript.</p>
+      <div class="stack-list"><span>Python + Flask</span><span>SQLite</span><span>Jinja2</span><span>Accessible HTML</span></div>
+    </div>
+    <div class="tab-panel" id="values-panel" role="tabpanel" aria-labelledby="values-tab" data-panel="values" hidden>
+      <h2>Learn responsibly.</h2>
+      <p>Only test systems you own or have permission to assess. Good security work is careful, documented, and focused on reducing harm.</p>
+    </div>
+  </div>
   <p>This is the first version of E.H.H. Feel free to reach out if you wish to contribute to a future release.</p>
 </div>
 {% endblock %}

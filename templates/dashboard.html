@@ -10,18 +10,29 @@ title %}Dashboard · E.H.H.{% endblock %} {% block content %}
 </div>
 
 <section class="section">
+  <div class="path-toolbar">
+    <div>
+      <span class="section-kicker">Your map</span>
+      <h2>Choose your path</h2>
+    </div>
+    <label class="path-search">
+      <span class="sr-only">Search learning paths</span>
+      <input type="search" data-path-search placeholder="Search paths..." autocomplete="off" />
+    </label>
+  </div>
   <div class="path-grid">
     {% for path in paths %}
-    <div class="path-card">
+    <article class="path-card" data-path-card data-search="{{ path.title }} {{ path.description }}">
       <div class="path-icon">{{ path_icon(path.icon) }}</div>
       <h3>{{ path.title }}</h3>
       <p>{{ path.description }}</p>
       <a class="path-link" href="{{ url_for('path_detail', slug=path.slug) }}"
         >View materials &rsaquo;</a
       >
-    </div>
+    </article>
     {% endfor %}
   </div>
+  <p class="empty-state path-empty" data-path-empty hidden>No path matches that search. Try a different keyword.</p>
 </section>
 
 <section class="section">
