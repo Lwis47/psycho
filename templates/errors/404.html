@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Page not found · E.H.H.{% endblock %}
+{% block content %}
+<section class="error-page">
+  <div class="error-code">404</div>
+  <h1>This page doesn't exist.</h1>
+  <p>The page you're looking for may have moved, or the link might be broken.</p>
+  <div class="hero-actions" style="justify-content:center;">
+    <a class="btn btn-primary" href="{{ url_for('index') }}">Back to home</a>
+    {% if session.get('user_id') %}
+    <a class="btn btn-ghost" href="{{ url_for('dashboard') }}">Go to dashboard</a>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

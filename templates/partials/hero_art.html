@@ -1,0 +1,56 @@
+<svg viewBox="0 0 420 460" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="heroArtTitle">
+  <title id="heroArtTitle">Illustration of a hooded figure working on a laptop, screen glowing green</title>
+
+  <!-- desk -->
+  <rect x="40" y="360" width="340" height="6" rx="3" fill="#1A2230"/>
+
+  <!-- laptop base -->
+  <path d="M120 355 L300 355 L292 340 L128 340 Z" fill="#1A2230" stroke="#263241" stroke-width="1.5"/>
+  <rect x="150" y="349" width="120" height="4" rx="2" fill="#263241"/>
+
+  <!-- laptop screen -->
+  <path d="M150 340 L270 340 L262 225 L158 225 Z" fill="#0B0F14" stroke="#263241" stroke-width="1.5"/>
+  <path d="M156 233 L264 233 L257 336 L163 336 Z" fill="#0F2A22"/>
+  <!-- screen glow -->
+  <path d="M156 233 L264 233 L257 336 L163 336 Z" fill="url(#screenGlow)"/>
+  <!-- code lines on screen -->
+  <g stroke="#38D9A9" stroke-width="2.4" stroke-linecap="round" opacity="0.85">
+    <line x1="170" y1="250" x2="215" y2="250"/>
+    <line x1="170" y1="262" x2="238" y2="262"/>
+    <line x1="170" y1="274" x2="200" y2="274"/>
+    <line x1="170" y1="286" x2="230" y2="286"/>
+    <line x1="170" y1="298" x2="210" y2="298"/>
+  </g>
+
+  <!-- hooded figure -->
+  <g>
+    <!-- torso -->
+    <path d="M150 400 C150 330 175 300 210 300 C245 300 270 330 270 400 L270 420 L150 420 Z" fill="#131A22" stroke="#263241" stroke-width="1.5"/>
+    <!-- hood/head -->
+    <path d="M175 300 C175 255 190 215 210 215 C230 215 245 255 245 300 C245 315 230 322 210 322 C190 322 175 315 175 300 Z" fill="#0B0F14" stroke="#263241" stroke-width="1.5"/>
+    <!-- hood shadow (face void, lit only by screen) -->
+    <ellipse cx="210" cy="285" rx="22" ry="26" fill="#050709"/>
+    <!-- faint screen-glow catchlight on the hood edge -->
+    <path d="M188 300 C190 310 198 316 210 317" stroke="#38D9A9" stroke-width="2" opacity="0.35" fill="none" stroke-linecap="round"/>
+    <!-- hands on laptop -->
+    <ellipse cx="182" cy="345" rx="10" ry="7" fill="#131A22" stroke="#263241" stroke-width="1.2"/>
+    <ellipse cx="240" cy="345" rx="10" ry="7" fill="#131A22" stroke="#263241" stroke-width="1.2"/>
+  </g>
+
+  <!-- decorative circuit lines -->
+  <g stroke="#1F7A5C" stroke-width="1.4" opacity="0.55" fill="none">
+    <path d="M40 120 h60 v30 h40"/>
+    <circle cx="140" cy="150" r="3.5" fill="#1F7A5C" stroke="none"/>
+    <path d="M380 90 h-50 v40 h-30"/>
+    <circle cx="300" cy="130" r="3.5" fill="#1F7A5C" stroke="none"/>
+    <path d="M60 400 h-20 v-60"/>
+    <circle cx="40" cy="340" r="3.5" fill="#1F7A5C" stroke="none"/>
+  </g>
+
+  <defs>
+    <radialGradient id="screenGlow" cx="50%" cy="35%" r="75%">
+      <stop offset="0%" stop-color="#38D9A9" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#38D9A9" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

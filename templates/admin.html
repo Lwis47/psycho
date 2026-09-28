@@ -1,0 +1,81 @@
+{% extends "base.html" %} {% block title %}Admin · E.H.H.{% endblock %} {% block
+content %}
+<div class="dash-hero">
+  <h1>Admin panel</h1>
+  <p>Upload learning materials to any path on the dashboard.</p>
+  <div style="margin-top: 16px">
+    <a class="btn btn-ghost" href="{{ url_for('admin_users') }}"
+      >View registered users</a
+    >
+  </div>
+</div>
+
+<section class="section">
+  <div class="admin-grid">
+    <div class="upload-card">
+      <h2>Upload material</h2>
+      <form method="post" enctype="multipart/form-data">
+        <div class="field">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" required />
+        </div>
+        <div class="field">
+          <label for="section">Path</label>
+          <select id="section" name="section" required>
+            {% for p in paths %}
+            <option value="{{ p.slug }}">{{ p.title }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="field">
+          <label for="description">Description (optional)</label>
+          <textarea id="description" name="description"></textarea>
+        </div>
+        <div class="field">
+          <label for="file">File</label>
+          <input type="file" id="file" name="file" required />
+          <div class="field-hint">
+            Allowed: pdf, docx, pptx, zip, txt, md, png, jpg, mp4.
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Upload</button>
+      </form>
+    </div>
+
+    <div>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Path</th>
+            <th>Uploaded</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for m in materials %}
+          <tr>
+            <td>{{ m.title }}</td>
+            <td>{{ m.section }}</td>
+            <td>{{ m.uploaded_at }}</td>
+            <td>
+              <form
+                method="post"
+                action="{{ url_for('delete_material', material_id=m.id) }}"
+                onsubmit="return confirm('Delete this material?');"
+              >
+                <button type="submit" class="danger-btn">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="4">No materials uploaded yet.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

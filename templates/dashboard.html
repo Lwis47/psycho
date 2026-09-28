@@ -1,0 +1,61 @@
+{% extends "base.html" %} {% from "partials/path_icon.html" import path_icon %}
+{% from "partials/material_actions.html" import material_actions %} {% block
+title %}Dashboard · E.H.H.{% endblock %} {% block content %}
+<div class="dash-hero">
+  <h1>Choose your path</h1>
+  <p>
+    Pick a track to see its materials, or head to the Linux distributions page
+    to get your toolkit set up.
+  </p>
+</div>
+
+<section class="section">
+  <div class="path-grid">
+    {% for path in paths %}
+    <div class="path-card">
+      <div class="path-icon">{{ path_icon(path.icon) }}</div>
+      <h3>{{ path.title }}</h3>
+      <p>{{ path.description }}</p>
+      <a class="path-link" href="{{ url_for('path_detail', slug=path.slug) }}"
+        >View materials &rsaquo;</a
+      >
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Recently added materials</h2>
+    <p>The newest resources uploaded across every path.</p>
+  </div>
+  {% if recent_materials %}
+  <div class="materials-list">
+    {% for m in recent_materials %}
+    <div class="material-row">
+      <div class="material-row-top">
+        <a href="{{ url_for('material_detail', material_id=m.id) }}">
+          <div class="m-title">{{ m.title }}</div>
+          <div class="m-meta">{{ m.uploaded_at }}</div>
+        </a>
+        <span class="m-section">{{ m.section }}</span>
+      </div>
+      {{ material_actions(m) }}
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">No materials uploaded yet. Check back soon.</div>
+  {% endif %}
+</section>
+
+<section class="section" style="padding-top: 0">
+  <div class="section-head">
+    <h2>Set up your toolkit</h2>
+    <p>Browse Linux distributions built for security work.</p>
+  </div>
+  <a class="btn btn-primary" href="{{ url_for('linux_distros') }}"
+    >View Linux distributions</a
+  >
+</section>
+{% endblock %}

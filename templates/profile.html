@@ -1,0 +1,158 @@
+<!doctype html>
+{% extends "base.html" %} {% block title %}My Profile · E.H.H.{% endblock %} {%
+block content %}
+<div class="dash-hero">
+  <h1>My Profile</h1>
+  <p>Your account details and settings.</p>
+</div>
+
+<section class="section" style="max-width: 640px">
+  <div class="profile-card">
+    <h2>Profile picture</h2>
+    <div style="display: flex; align-items: center; gap: 20px">
+      <div class="avatar-preview">
+        {% if user.avatar_filename %}
+        <img
+          src="{{ url_for('static', filename='avatars/' + user.avatar_filename) }}"
+          alt="Profile picture"
+        />
+        {% else %}
+        <span>{{ (user.full_name or user.email)[0]|upper }}</span>
+        {% endif %}
+      </div>
+      <form
+        method="post"
+        action="{{ url_for('upload_avatar') }}"
+        enctype="multipart/form-data"
+        style="flex: 1"
+      >
+        <div class="field" style="margin-bottom: 10px">
+          <input
+            type="file"
+            name="avatar"
+            accept="image/png,image/jpeg,image/gif,image/webp"
+            required
+          />
+          <div class="field-hint">PNG, JPG, GIF, or WEBP.</div>
+        </div>
+        <button type="submit" class="btn btn-ghost btn-sm">
+          Upload picture
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <h2>Account</h2>
+    <div class="profile-row">
+      <span class="label">Full name</span>
+      <span class="value"
+        >{{ user.full_name if user.full_name else "Not set" }}</span
+      >
+    </div>
+    <div class="profile-row">
+      <span class="label">Email</span>
+      <span class="value">{{ user.email }}</span>
+    </div>
+    <div class="profile-row">
+      <span class="label">Role</span>
+      <span class="role-badge {{ 'admin' if user.is_admin else 'user' }}">
+        {{ "Admin" if user.is_admin else "User" }}
+      </span>
+    </div>
+    <div class="profile-row">
+      <span class="label">Email verified</span>
+      <span class="value">{{ "Yes" if user.is_verified else "No" }}</span>
+    </div>
+    <div class="profile-row">
+      <span class="label">Member since</span>
+      <span class="value">{{ user.created_at }}</span>
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <h2>Appearance</h2>
+    <div class="theme-options">
+      <form method="post" action="{{ url_for('set_theme') }}" style="flex: 1">
+        <input type="hidden" name="theme" value="dark" />
+        <button
+          type="submit"
+          class="theme-option {{ 'active' if user.theme != 'light' else '' }}"
+          style="width: 100%"
+        >
+          &#127769; Dark mode
+        </button>
+      </form>
+      <form method="post" action="{{ url_for('set_theme') }}" style="flex: 1">
+        <input type="hidden" name="theme" value="light" />
+        <button
+          type="submit"
+          class="theme-option {{ 'active' if user.theme == 'light' else '' }}"
+          style="width: 100%"
+        >
+          &#9728;&#65039; Light mode
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="profile-card">
+    <h2>Change password</h2>
+    <form method="post" action="{{ url_for('change_password') }}" data-password-confirm>
+      <div class="field">
+        <label for="current_password">Current password</label>
+        <input
+          type="password"
+          id="current_password"
+          name="current_password"
+          required
+        />
+      </div>
+      <div class="field">
+        <label for="new_password">New password</label>
+        <input
+          type="password"
+          id="new_password"
+          name="new_password"
+          minlength="8"
+          required
+        />
+        <div class="field-hint">At least 8 characters.</div>
+      </div>
+      <div class="field">
+        <label for="confirm_new_password">Confirm new password</label>
+        <input
+          type="password"
+          id="confirm_new_password"
+          name="confirm_new_password"
+          minlength="8"
+          required
+        />
+      </div>
+      <button type="submit" class="btn btn-primary">Update password</button>
+    </form>
+  </div>
+
+  {% if not user.is_admin %}
+  <div class="profile-card danger-zone">
+    <h2>Danger zone</h2>
+    <p>
+      Deleting your account removes your login, your likes/dislikes, and your
+      comments. Materials you may have interacted with are not affected. This
+      can't be undone.
+    </p>
+    <form
+      method="post"
+      action="{{ url_for('delete_own_account') }}"
+      onsubmit="
+        return confirm(
+          'Permanently delete your account? This can\'t be undone.',
+        );
+      "
+    >
+      <button type="submit" class="danger-btn">Delete my account</button>
+    </form>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

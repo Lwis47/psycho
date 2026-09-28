@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Bad request · E.H.H.{% endblock %}
+{% block content %}
+<section class="error-page">
+  <div class="error-code">400</div>
+  <h1>Something about that request wasn't right.</h1>
+  <p>The request couldn't be processed. Go back and try again.</p>
+  <div class="hero-actions" style="justify-content:center;">
+    <a class="btn btn-primary" href="{{ url_for('index') }}">Back to home</a>
+  </div>
+</section>
+{% endblock %}

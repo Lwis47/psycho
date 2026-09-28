@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: ehh-class-project
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app
+    healthCheckPath: /
+    autoDeployTrigger: commit
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.5
+      - key: EHH_SECRET_KEY
+        generateValue: true
+      - key: EHH_ADMIN_EMAIL
+        sync: false
+      - key: EHH_MAIL_SERVER
+        sync: false
+      - key: EHH_MAIL_PORT
+        value: "587"
+      - key: EHH_MAIL_USERNAME
+        sync: false
+      - key: EHH_MAIL_PASSWORD
+        sync: false
+      - key: EHH_MAIL_FROM
+        sync: false

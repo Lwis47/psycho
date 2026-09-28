@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Developer · E.H.H.{% endblock %}
+{% block content %}
+<div class="prose">
+  <span class="section-kicker">The Person behind the project</span>
+  <h1>Meet the developer</h1>
+  <p>Ethical Hacking Hub is built and maintained by:</p>
+  <div class="dev-card">
+    <img class="dev-photo" src="{{ url_for('static', filename='images/me.jpg') }}" alt="LWIS WANYONYI" />
+    <div><h3>LWIS WANYONYI (cypher)</h3><p>A Tech Student · Creator of Ethical Hacking Hub</p></div>
+  </div>
+  <a class="dev-contact" href="mailto:Ehh_Admin@proton.me?subject=Regarding%20E.H.H">Ehh_Admin@proton.me</a>
+  <p>I'm a cybersecurity enthusiast and aspiring software developer dedicated to learning, exploring, and sharing
+     knowledge in cybersecurity. Through Ethical Hacking Hub my goal is to create a platform that empowers people to build skills in ethical hacking and cybersecurity.</p>
+  <p>This is the first version of E.H.H. Feel free to reach out if you wish to contribute to a future release.</p>
+</div>
+{% endblock %}

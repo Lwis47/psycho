@@ -1,0 +1,27 @@
+#secrets and configuration files
+config.py
+!config.py
+.env
+.env.*
+
+#flask
+instance/
+
+#uploaded files
+uploads/*
+!uploads/.gitkeep
+!uploads/*.pdf
+#python
+__pycache__/
+*.py[cod]
+
+#virtual environments
+venv/
+.venv/
+env/
+
+#VS Code
+.vscode/
+
+#log files
+*.log

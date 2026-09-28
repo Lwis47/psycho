@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}{{ material.title }} · E.H.H.{% endblock %}
+{% block content %}
+<div class="dash-hero">
+  <h1>{{ material.title }}</h1>
+  <p>
+    <span class="m-section">{{ material.section }}</span>
+    <span class="m-meta">Uploaded {{ material.uploaded_at }}</span>
+  </p>
+</div>
+
+<section class="section">
+  {% if material.description %}
+  <p style="color:var(--text-muted); max-width:65ch; margin-bottom:24px;">{{ material.description }}</p>
+  {% endif %}
+
+  <div class="material-actions" style="margin-bottom:34px;">
+    <a class="btn btn-primary" href="{{ url_for('view_material', material_id=material.id) }}" target="_blank" rel="noopener">View document</a>
+    <a class="btn btn-ghost" href="{{ url_for('download_material', material_id=material.id) }}">Download</a>
+
+    <form method="post" action="{{ url_for('react_material', material_id=material.id) }}" class="reaction-form">
+      <input type="hidden" name="reaction" value="like">
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <button type="submit" class="reaction-btn {{ 'active-like' if material.user_reaction == 'like' else '' }}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 22V11 M2 13v7a2 2 0 0 0 2 2h12.7a2 2 0 0 0 2-1.6l1.3-7A2 2 0 0 0 18 11h-5l1-5.5a1.5 1.5 0 0 0-2.6-1.2L7 11H2Z"/></svg>
+        Like ({{ material.likes }})
+      </button>
+    </form>
+
+    <form method="post" action="{{ url_for('react_material', material_id=material.id) }}" class="reaction-form">
+      <input type="hidden" name="reaction" value="dislike">
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <button type="submit" class="reaction-btn {{ 'active-dislike' if material.user_reaction == 'dislike' else '' }}">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 2v11 M22 11V4a2 2 0 0 0 -2-2H7.3a2 2 0 0 0 -2 1.6L4 10.6A2 2 0 0 0 6 13h5l-1 5.5a1.5 1.5 0 0 0 2.6 1.2L17 13h5Z"/></svg>
+        Dislike ({{ material.dislikes }})
+      </button>
+    </form>
+  </div>
+
+  <div class="section-head">
+    <h2>Comments ({{ material.comment_count }})</h2>
+  </div>
+
+  <form method="post" action="{{ url_for('comment_material', material_id=material.id) }}" style="margin-bottom:28px;">
+    <div class="field">
+      <textarea name="body" placeholder="Add a comment..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Post comment</button>
+  </form>
+
+  {% if comments %}
+  <div class="comment-list">
+    {% for c in comments %}
+    <div class="comment-row">
+      <div class="comment-meta">
+        <span class="comment-author">{{ c.user_email }}</span>
+        <span class="m-meta">{{ c.created_at }}</span>
+      </div>
+      <p class="comment-body">{{ c.body }}</p>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">No comments yet. Be the first to say something.</div>
+  {% endif %}
+</section>
+
+<section class="section" style="padding-top:0;">
+  <a class="btn btn-ghost" href="{{ url_for('path_detail', slug=material.section) }}">&larr; Back to {{ material.section.replace('-', ' ') }}</a>
+</section>
+{% endblock %}
