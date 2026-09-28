@@ -246,7 +246,8 @@ def signup():
         code = gen_code()
         expires = (now() + timedelta(minutes=15)).isoformat()
         password_hash = generate_password_hash(password)
-        is_admin = 1 if email == config.ADMIN_EMAIL.lower() else 0
+        admin_email = (config.ADMIN_EMAIL or "").strip().lower()
+        is_admin = 1 if email == admin_email else 0
 
         if existing:
             if existing["is_verified"]:

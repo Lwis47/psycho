@@ -1,8 +1,11 @@
 import smtplib
+import logging
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 import settings as config
+
+logger = logging.getLogger(__name__)
 
 
 def send_email(to_address: str, subject: str, body: str) -> bool:
@@ -32,10 +35,14 @@ def send_email(to_address: str, subject: str, body: str) -> bool:
     msg["Subject"] = subject
     msg.attach(MIMEText(body, "plain"))
 
-    with smtplib.SMTP(config.MAIL_SERVER, config.MAIL_PORT) as server:
-        server.starttls()
-        server.login(config.MAIL_USERNAME, config.MAIL_PASSWORD)
-        server.sendmail(config.MAIL_FROM, [to_address], msg.as_string())
+    try:
+        with smtplib.SMTP(config.MAIL_SERVER, config.MAIL_PORT, timeout=20) as server:
+            server.starttls()
+            server.login(config.MAIL_USERNAME, config.MAIL_PASSWORD)
+            server.sendmail(config.MAIL_FROM, [to_address], msg.as_string())
+    except (OSError, smtplib.SMTPException):
+        logger.exception("SMTP delivery failed for %s", to_address)
+        return False
     return True
 
 
