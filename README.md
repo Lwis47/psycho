@@ -32,7 +32,11 @@ vanilla behavior via native browser features).
 # 1. Install the one dependency
 pip install -r requirements.txt
 
-# 2. Run it
+# 2. Configure a local secret
+copy config.example.py config.py
+# Edit config.py and replace SECRET_KEY with a long random value
+
+# 3. Run it
 python app.py
 ```
 
@@ -119,8 +123,8 @@ ehh/
 This is a working prototype suited for local use, a class project, or a small private
 deployment. Before putting it on the public internet:
 
-- Set a strong, random `SECRET_KEY` in `config.py` (or via the `EHH_SECRET_KEY`
-  environment variable) — don't use the default.
+- Set a strong, random `SECRET_KEY` via the `EHH_SECRET_KEY` environment
+  variable (or in an untracked local `config.py`) before starting the app.
 - Run it behind a real WSGI server (e.g. `gunicorn app:app`) instead of the Flask
   development server used by `python app.py`.
 - Serve it over HTTPS.

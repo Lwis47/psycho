@@ -1,6 +1,5 @@
 #secrets and configuration files
 config.py
-!config.py
 .env
 .env.*
 
